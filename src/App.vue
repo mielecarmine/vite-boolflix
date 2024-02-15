@@ -14,7 +14,7 @@ export default {
     getFilms() {
       axios
         .get(
-          `https://api.themoviedb.org/3/search/movie?query=${this.input_text}&language=it-IT&api_key=d412bfcc96af738b7acab8717a83e0ff`
+          `${store.api.uri}/search/movie?query=${this.input_text}&language=it-IT&api_key=${store.api.key}`
         )
         .then((res) => {
           store.films = res.data.results;
@@ -37,6 +37,7 @@ export default {
         aria-label="Sizing example input"
         aria-describedby="inputGroup-sizing-default"
         v-model="input_text"
+        @keyup.enter="getFilms()"
       />
       <button @click="getFilms()" class="btn btn-primary">Cerca</button>
     </div>
