@@ -48,6 +48,11 @@ export default {
         });
     },
 
+    mapVoteAvrg(vote) {
+      vote = vote / 2;
+      return Math.floor(vote);
+    },
+
     getFlag(langCode) {
       if (langCode == "en")
         return new URL("./assets/img/eng.jpg", import.meta.url).href;
@@ -89,7 +94,9 @@ export default {
       <li class="list-group-item">
         <img :src="getFlag(film.original_language)" alt="" />
       </li>
-      <li class="list-group-item"><b>Voto medio:</b> {{ film.vote_avrg }}</li>
+      <li class="list-group-item">
+        <b>Voto medio:</b> {{ mapVoteAvrg(film.vote_avrg) }}
+      </li>
       <li class="list-group-item">
         <img
           :src="`${store.api_img}${store.img_width}${film.poster}`"
@@ -108,7 +115,7 @@ export default {
         <img :src="getFlag(tvSerie.original_language)" alt="" />
       </li>
       <li class="list-group-item">
-        <b>Voto medio:</b> {{ tvSerie.vote_avrg }}
+        <b>Voto medio:</b> {{ mapVoteAvrg(tvSerie.vote_avrg) }}
       </li>
       <li class="list-group-item">
         <img
