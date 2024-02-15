@@ -29,12 +29,34 @@ export default {
         });
     },
 
+    getTvSeries() {
+      axios
+        .get(
+          `${store.api.uri}/search/tv?query=${this.input_text}&language=it-IT&api_key=${store.api.key}`
+        )
+        .then((res) => {
+          store.tvSeries = res.data.results.map((tvSerie) => {
+            return {
+              title: tvSerie.name,
+              original_title: tvSerie.original_name,
+              original_language: tvSerie.original_language,
+              vote_avrg: tvSerie.vote_average,
+            };
+          });
+        });
+    },
+
     getFlag(langCode) {
       if (langCode == "en")
         return new URL("./assets/img/eng.jpg", import.meta.url).href;
       if (langCode == "it")
         return new URL("./assets/img/it.png", import.meta.url).href;
       return "bandiera default";
+    },
+
+    performSearch() {
+      this.getFilms();
+      this.getTvSeries();
     },
   },
 };
@@ -52,11 +74,12 @@ export default {
         aria-label="Sizing example input"
         aria-describedby="inputGroup-sizing-default"
         v-model="input_text"
-        @keyup.enter="getFilms()"
+        @keyup.enter="performSearch()"
       />
-      <button @click="getFilms()" class="btn btn-primary">Cerca</button>
+      <button @click="performSearch()" class="btn btn-primary">Cerca</button>
     </div>
     <ul v-for="(film, index) in store.films" class="list-group pb-3">
+      <h3>Film</h3>
       <li class="list-group-item"><b>Titolo:</b> {{ film.title }}</li>
       <li class="list-group-item">
         <b>Titolo originale:</b> {{ film.original_title }}
@@ -65,6 +88,20 @@ export default {
         <img :src="getFlag(film.original_language)" alt="" />
       </li>
       <li class="list-group-item"><b>Voto medio:</b> {{ film.vote_avrg }}</li>
+    </ul>
+
+    <ul v-for="(tvSerie, index) in store.tvSeries" class="list-group pb-3">
+      <h3>Serie Tv</h3>
+      <li class="list-group-item"><b>Titolo:</b> {{ tvSerie.title }}</li>
+      <li class="list-group-item">
+        <b>Titolo originale:</b> {{ tvSerie.original_title }}
+      </li>
+      <li class="list-group-item">
+        <img :src="getFlag(tvSerie.original_language)" alt="" />
+      </li>
+      <li class="list-group-item">
+        <b>Voto medio:</b> {{ tvSerie.vote_avrg }}
+      </li>
     </ul>
   </div>
 </template>
