@@ -23,6 +23,7 @@ export default {
               original_title: film.original_title,
               original_language: film.original_language,
               vote_avrg: Math.floor(film.vote_average),
+              poster: film.poster_path,
             };
           });
           console.log(store.films);
@@ -41,6 +42,7 @@ export default {
               original_title: tvSerie.original_name,
               original_language: tvSerie.original_language,
               vote_avrg: tvSerie.vote_average,
+              poster: tvSerie.poster_path,
             };
           });
         });
@@ -88,6 +90,12 @@ export default {
         <img :src="getFlag(film.original_language)" alt="" />
       </li>
       <li class="list-group-item"><b>Voto medio:</b> {{ film.vote_avrg }}</li>
+      <li class="list-group-item">
+        <img
+          :src="`${store.api_img}${store.img_width}${film.poster}`"
+          alt="Copertina"
+        />
+      </li>
     </ul>
 
     <ul v-for="(tvSerie, index) in store.tvSeries" class="list-group pb-3">
@@ -101,6 +109,12 @@ export default {
       </li>
       <li class="list-group-item">
         <b>Voto medio:</b> {{ tvSerie.vote_avrg }}
+      </li>
+      <li class="list-group-item">
+        <img
+          :src="`${store.api_img}${store.img_width}${tvSerie.poster}`"
+          alt="Copertina"
+        />
       </li>
     </ul>
   </div>
