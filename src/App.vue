@@ -53,6 +53,11 @@ export default {
       return Math.floor(vote);
     },
 
+    subtract(vote) {
+      const stars = 5 - vote;
+      return stars;
+    },
+
     getFlag(langCode) {
       if (langCode == "en")
         return new URL("./assets/img/eng.jpg", import.meta.url).href;
@@ -95,7 +100,14 @@ export default {
         <img :src="getFlag(film.original_language)" alt="" />
       </li>
       <li class="list-group-item">
-        <b>Voto medio:</b> {{ mapVoteAvrg(film.vote_avrg) }}
+        <font-awesome-icon
+          v-for="i in 5"
+          :icon="
+            i <= mapVoteAvrg(film.vote_avrg)
+              ? 'fa-solid fa-star'
+              : 'fa-regular fa-star'
+          "
+        />
       </li>
       <li class="list-group-item">
         <img
@@ -115,7 +127,14 @@ export default {
         <img :src="getFlag(tvSerie.original_language)" alt="" />
       </li>
       <li class="list-group-item">
-        <b>Voto medio:</b> {{ mapVoteAvrg(tvSerie.vote_avrg) }}
+        <font-awesome-icon
+          v-for="i in 5"
+          :icon="
+            i <= mapVoteAvrg(tvSerie.vote_avrg)
+              ? 'fa-solid fa-star'
+              : 'fa-regular fa-star'
+          "
+        />
       </li>
       <li class="list-group-item">
         <img
