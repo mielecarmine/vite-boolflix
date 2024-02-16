@@ -12,9 +12,10 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 /* import specific icons */
 import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { faStarRegular } from "@fortawesome/free-regular-svg-icons";
 
 /* add icons to the library */
-library.add(faStar);
+library.add(faStar, faStarRegular);
 
 const app = createApp(App);
 app.mount("#app");
