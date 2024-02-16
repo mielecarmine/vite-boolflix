@@ -1,6 +1,7 @@
 <script>
 import axios from "axios";
 import { store } from "./store/index";
+import AppHeader from "./components/AppHeader.vue";
 
 export default {
   data() {
@@ -9,6 +10,8 @@ export default {
       input_text: "",
     };
   },
+
+  components: { AppHeader },
 
   methods: {
     getFilms() {
@@ -75,7 +78,8 @@ export default {
 </script>
 
 <template>
-  <div class="container">
+  <app-header />
+  <!-- <div class="container">
     <div class="input-group mb-3 mt-5">
       <span class="input-group-text" id="inputGroup-sizing-default"
         >Search</span
@@ -143,7 +147,7 @@ export default {
         />
       </li>
     </ul>
-  </div>
+  </div> -->
 </template>
 
 <style lang="scss">
