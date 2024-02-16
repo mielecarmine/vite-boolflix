@@ -7,18 +7,21 @@ export default {
   data() {
     return {
       store,
-      input_text: "",
+      // input_text: "",
     };
   },
 
   components: { AppHeader },
 
   methods: {
-    getFilms() {
+    getFilms(input_production) {
       axios
-        .get(
-          `${store.api.uri}/search/movie?query=${this.input_text}&language=it-IT&api_key=${store.api.key}`
-        )
+        .get(`${store.api.uri}/search/movie`, {
+          params: {
+            api_key: store.api.key,
+            query: input_production,
+          },
+        })
         .then((res) => {
           store.films = res.data.results.map((film) => {
             return {
@@ -33,11 +36,14 @@ export default {
         });
     },
 
-    getTvSeries() {
+    getTvSeries(input_production) {
       axios
-        .get(
-          `${store.api.uri}/search/tv?query=${this.input_text}&language=it-IT&api_key=${store.api.key}`
-        )
+        .get(`${store.api.uri}/search/tv`, {
+          params: {
+            api_key: store.api.key,
+            query: input_production,
+          },
+        })
         .then((res) => {
           store.tvSeries = res.data.results.map((tvSerie) => {
             return {
@@ -56,11 +62,6 @@ export default {
       return Math.floor(vote);
     },
 
-    subtract(vote) {
-      const stars = 5 - vote;
-      return stars;
-    },
-
     getFlag(langCode) {
       if (langCode == "en")
         return new URL("./assets/img/eng.jpg", import.meta.url).href;
@@ -69,16 +70,16 @@ export default {
       return "bandiera default";
     },
 
-    performSearch() {
-      this.getFilms();
-      this.getTvSeries();
+    performSearch(input_production) {
+      this.getFilms(input_production);
+      this.getTvSeries(input_production);
     },
   },
 };
 </script>
 
 <template>
-  <app-header />
+  <app-header @search="performSearch" />
   <!-- <div class="container">
     <div class="input-group mb-3 mt-5">
       <span class="input-group-text" id="inputGroup-sizing-default"
