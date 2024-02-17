@@ -2,6 +2,7 @@
 import axios from "axios";
 import { store } from "./store/index";
 import AppHeader from "./components/AppHeader.vue";
+import AppMain from "./components/AppMain.vue";
 
 export default {
   data() {
@@ -11,7 +12,7 @@ export default {
     };
   },
 
-  components: { AppHeader },
+  components: { AppHeader, AppMain },
 
   methods: {
     getFilms(input_production) {
@@ -80,6 +81,7 @@ export default {
 
 <template>
   <app-header @search="performSearch" />
+  <app-main />
   <!-- <div class="container">
     <div class="input-group mb-3 mt-5">
       <span class="input-group-text" id="inputGroup-sizing-default"
